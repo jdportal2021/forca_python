@@ -24,7 +24,7 @@ class forca():
         
     def dimension(self):
         self.root.title('Meu Portal')
-        self.root.iconbitmap('Imagens/icone python.ico')
+        self.root.iconbitmap('Images/icone python.ico')
         self.root.configure(background='#004FA5')
         self.root.resizable(True, True)
         self.root.maxsize(600, 400)
@@ -49,9 +49,9 @@ class forca():
     def widgets(self):
         #widgets
         #imagem
-        self.img_welcome_resized = self.resized_img('Imagens/bem vindo.png', 300, 60)
+        self.img_welcome_resized = self.resized_img('Images/bem vindo.png', 300, 60)
         self.img_welcome = Label(self.frame, image=self.img_welcome_resized, borderwidth=0)
-        self.img_award_resized = self.resized_img('Imagens/transparente.png', 300, 225)
+        self.img_award_resized = self.resized_img('Images/transparente.png', 300, 225)
         self.img_award = Label(self.frame, image=self.img_award_resized, borderwidth=0)
         #label
         self.lbl_secret_word = Label(self.frame, textvariable=self.secret_word_stv, bg='#004FA5', fg='white', font='Helvetica 30')
@@ -82,10 +82,10 @@ class forca():
     def start(self):
         self.ety_letter.config(state='normal')
         self.img_welcome.destroy()
-        self.img_forca_resized = self.resize_img('Imagens/forca0.png', 160, 240)
+        self.img_forca_resized = self.resize_img('Images/forca0.png', 160, 240)
         self.img_forca = Label(self.frame, image=self.img_forca_resized, borderwidth=0)
         self.img_forca.place(x=420, y=10)
-        self.img_award_resized = self.resize_img('Imagens/transparent.png', 300, 225)
+        self.img_award_resized = self.resize_img('Images/transparent.png', 300, 225)
         self.img_award.configure(image=self.img_award_resized)
         self.img_award.image = self.img_award_resized
 
@@ -142,7 +142,7 @@ class forca():
     def print_msg_won(self):
         self.wrong_letters.set('')
         self.phrase.set('Parabéns, você ganhou!')
-        self.img_award_resized = self.resize_img('Imagens/trofeu.png', 300, 225)
+        self.img_award_resized = self.resize_img('Images/trofeu.png', 300, 225)
         self.img_award.configure(image=self.img_award_resized)
         self.img_award.image = self.img_award_resized
 
@@ -150,37 +150,37 @@ class forca():
         self.wrong_letters.set('')
         self.phrase.set('Puxa, você foi enforcado!')
         self.phrase_lost.set(f'A palavra era "{secret_word}"')
-        self.img_award_resized = self.resize_img('Imagens/skull.png', 300, 225)
+        self.img_award_resized = self.resize_img('Images/skull.png', 300, 225)
         self.img_award.configure(image=self.img_award_resized)
         self.img_award.image = self.img_award_resized
 
     def draw_forca(self, error):
         if(error == 1):
-            self.img_forca_resized = self.resize_img('Imagens/forca1.png', 160, 240)
+            self.img_forca_resized = self.resize_img('Images/forca1.png', 160, 240)
             self.img_forca.configure(image=self.img_forca_resized)
             self.img_forca.image = self.img_forca_resized
         if(error == 2):
-            self.img_forca_resized = self.resize_img('Imagens/forca2.png', 160, 240)
+            self.img_forca_resized = self.resize_img('Images/forca2.png', 160, 240)
             self.img_forca.configure(image=self.img_forca_resized)
             self.img_forca.image = self.img_forca_resized
 
         if(error == 3):
-            self.img_forca_resized = self.resize_img('Imagens/forca3.png', 160, 240)
+            self.img_forca_resized = self.resize_img('Images/forca3.png', 160, 240)
             self.img_forca.configure(image=self.img_forca_resized)
             self.img_forca.image = self.img_forca_resized
 
         if(error == 4):
-            self.img_forca_resized = self.resize_img('Imagens/forca4.png', 160, 240)
+            self.img_forca_resized = self.resize_img('Images/forca4.png', 160, 240)
             self.img_forca.configure(image=self.img_forca_resized)
             self.img_forca.image = self.img_forca_resized
 
         if(error == 5):
-            self.img_forca_resized = self.resize_img('Imagens/forca5.png', 160, 240)
+            self.img_forca_resized = self.resize_img('Images/forca5.png', 160, 240)
             self.img_forca.configure(image=self.img_forca_resized)
             self.img_forca.image = self.img_forca_resized
 
         if(error == 6):
-            self.img_forca_resized = self.resize_img('Imagens/forca6.png', 160, 240)
+            self.img_forca_resized = self.resize_img('Images/forca6.png', 160, 240)
             self.img_forca.configure(image=self.img_forca_resized)
             self.img_forca.image = self.img_forca_resized
 
