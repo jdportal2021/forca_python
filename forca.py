@@ -6,7 +6,7 @@ from PIL import Image, ImageTk
 class forca():
     def __init__(self) -> None:
         self.set_var()
-        self.dimensao()
+        self.dimension()
         self.frames()
         self.widgets()
         self.root.mainloop()
@@ -18,11 +18,11 @@ class forca():
         self.phrase_lost = StringVar()
         self.wrong_letters = StringVar()
         self.letter = StringVar()
-        self.lista_wrong_letters = []
+        self.list_wrong_letters = []
         self.lost = False
         self.won = False
         
-    def dimensao(self):
+    def dimension(self):
         self.root.title('Meu Portal')
         self.root.iconbitmap('Imagens/icone python.ico')
         self.root.configure(background='#004FA5')
@@ -49,17 +49,17 @@ class forca():
     def widgets(self):
         #widgets
         #imagem
-        self.img_welcome_redimensionada = self.redimensiona_img('Imagens/bem vindo.png', 300, 60)
-        self.img_welcome = Label(self.frame, image=self.img_welcome_redimensionada, borderwidth=0)
-        self.img_award_redimensionada = self.redimensiona_img('Imagens/transparente.png', 300, 225)
-        self.img_award = Label(self.frame, image=self.img_award_redimensionada, borderwidth=0)
+        self.img_welcome_resized = self.resized_img('Imagens/bem vindo.png', 300, 60)
+        self.img_welcome = Label(self.frame, image=self.img_welcome_resized, borderwidth=0)
+        self.img_award_resized = self.resized_img('Imagens/transparente.png', 300, 225)
+        self.img_award = Label(self.frame, image=self.img_award_resized, borderwidth=0)
         #label
         self.lbl_secret_word = Label(self.frame, textvariable=self.secret_word_stv, bg='#004FA5', fg='white', font='Helvetica 30')
         self.lbl_phrase = Label(self.frame, textvariable=self.phrase, bg='#004FA5', fg='#9FDAEA', font='Helvetica 10')
         self.lbl_phrase_lost = Label(self.frame, textvariable=self.phrase_lost, bg='#004FA5', fg='#9FDAEA', font='Helvetica 10')
         self.lbl_wrong_letters = Label(self.frame, textvariable=self.wrong_letters, bg='#004FA5', fg='#9FDAEA', font='Helvetica 20')
         #entry
-        self.func_check = (self.frame.register(self.testa_valor_entrada), '%P')
+        self.func_check = (self.frame.register(self.input_value_test), '%P')
         self.ety_letter = Entry(self.frame, justify=CENTER, validate='key', validatecommand=self.func_check, textvariable=self.letter)
         #button
         self.btn_start = Button3d(self.frame, text='Iniciar', bg='#FFFE00', command=lambda:self.start())
@@ -82,15 +82,15 @@ class forca():
     def start(self):
         self.ety_letter.config(state='normal')
         self.img_welcome.destroy()
-        self.img_forca_redimensionada = self.redimensiona_img('Imagens/forca0.png', 160, 240)
-        self.img_forca = Label(self.frame, image=self.img_forca_redimensionada, borderwidth=0)
+        self.img_forca_resized = self.resize_img('Imagens/forca0.png', 160, 240)
+        self.img_forca = Label(self.frame, image=self.img_forca_resized, borderwidth=0)
         self.img_forca.place(x=420, y=10)
-        self.img_award_redimensionada = self.redimensiona_img('Imagens/transparente.png', 300, 225)
-        self.img_award.configure(image=self.img_award_redimensionada)
-        self.img_award.image = self.img_award_redimensionada
+        self.img_award_resized = self.resize_img('Imagens/transparent.png', 300, 225)
+        self.img_award.configure(image=self.img_award_resized)
+        self.img_award.image = self.img_award_resized
 
         self.wrong_letters.set('')
-        self.lista_wrong_letters = []
+        self.list_wrong_letters = []
         self.phrase_lost.set('')
         self.secret_word = self.get_secret_word()
         self.correct_letters = self.start_correct_letters(self.secret_word)
@@ -104,7 +104,7 @@ class forca():
   
     def get_secret_word(self):
         self.words = []
-        with open("palavras.txt", "r", encoding="utf-8") as file:
+        with open("words.txt", "r", encoding="utf-8") as file:
             for line in file:
                 line = line.strip()
                 self.words.append(line)
@@ -122,14 +122,14 @@ class forca():
     def set_kick(self):
         self.kick = self.letter.get()
         self.kick = self.kick.strip().upper()
-        if (self.kick in self.lista_wrong_letters):
+        if (self.kick in self.list_wrong_letters):
             messagebox.showerror('ERRO', 'Você já digitou essa letra')
             return ''
         else:
-            self.lista_wrong_letters.append(self.kick)
-            if (self.lista_wrong_letters[-1] == ''):
-                    self.lista_wrong_letters.pop()
-            self.wrong_letters.set(self.lista_wrong_letters)
+            self.list_wrong_letters.append(self.kick)
+            if (self.list_wrong_letters[-1] == ''):
+                    self.list_wrong_letters.pop()
+            self.wrong_letters.set(self.list_wrong_letters)
             return self.kick
             
     def set_correct_kick(self, kick, correct_letters, secret_word):
@@ -142,53 +142,53 @@ class forca():
     def print_msg_won(self):
         self.wrong_letters.set('')
         self.phrase.set('Parabéns, você ganhou!')
-        self.img_award_redimensionada = self.redimensiona_img('Imagens/trofeu.png', 300, 225)
-        self.img_award.configure(image=self.img_award_redimensionada)
-        self.img_award.image = self.img_award_redimensionada
+        self.img_award_resized = self.resize_img('Imagens/trofeu.png', 300, 225)
+        self.img_award.configure(image=self.img_award_resized)
+        self.img_award.image = self.img_award_resized
 
     def print_msg_lost(self, secret_word):
         self.wrong_letters.set('')
         self.phrase.set('Puxa, você foi enforcado!')
         self.phrase_lost.set(f'A palavra era "{secret_word}"')
-        self.img_award_redimensionada = self.redimensiona_img('Imagens/caveira.png', 300, 225)
-        self.img_award.configure(image=self.img_award_redimensionada)
-        self.img_award.image = self.img_award_redimensionada
+        self.img_award_resized = self.resize_img('Imagens/skull.png', 300, 225)
+        self.img_award.configure(image=self.img_award_resized)
+        self.img_award.image = self.img_award_resized
 
     def draw_forca(self, error):
         if(error == 1):
-            self.img_forca_redimensionada = self.redimensiona_img('Imagens/forca1.png', 160, 240)
-            self.img_forca.configure(image=self.img_forca_redimensionada)
-            self.img_forca.image = self.img_forca_redimensionada
+            self.img_forca_resized = self.resize_img('Imagens/forca1.png', 160, 240)
+            self.img_forca.configure(image=self.img_forca_resized)
+            self.img_forca.image = self.img_forca_resized
         if(error == 2):
-            self.img_forca_redimensionada = self.redimensiona_img('Imagens/forca2.png', 160, 240)
-            self.img_forca.configure(image=self.img_forca_redimensionada)
-            self.img_forca.image = self.img_forca_redimensionada
+            self.img_forca_resized = self.resize_img('Imagens/forca2.png', 160, 240)
+            self.img_forca.configure(image=self.img_forca_resized)
+            self.img_forca.image = self.img_forca_resized
 
         if(error == 3):
-            self.img_forca_redimensionada = self.redimensiona_img('Imagens/forca3.png', 160, 240)
-            self.img_forca.configure(image=self.img_forca_redimensionada)
-            self.img_forca.image = self.img_forca_redimensionada
+            self.img_forca_resized = self.resize_img('Imagens/forca3.png', 160, 240)
+            self.img_forca.configure(image=self.img_forca_resized)
+            self.img_forca.image = self.img_forca_resized
 
         if(error == 4):
-            self.img_forca_redimensionada = self.redimensiona_img('Imagens/forca4.png', 160, 240)
-            self.img_forca.configure(image=self.img_forca_redimensionada)
-            self.img_forca.image = self.img_forca_redimensionada
+            self.img_forca_resized = self.resize_img('Imagens/forca4.png', 160, 240)
+            self.img_forca.configure(image=self.img_forca_resized)
+            self.img_forca.image = self.img_forca_resized
 
         if(error == 5):
-            self.img_forca_redimensionada = self.redimensiona_img('Imagens/forca5.png', 160, 240)
-            self.img_forca.configure(image=self.img_forca_redimensionada)
-            self.img_forca.image = self.img_forca_redimensionada
+            self.img_forca_resized = self.resize_img('Imagens/forca5.png', 160, 240)
+            self.img_forca.configure(image=self.img_forca_resized)
+            self.img_forca.image = self.img_forca_resized
 
         if(error == 6):
-            self.img_forca_redimensionada = self.redimensiona_img('Imagens/forca6.png', 160, 240)
-            self.img_forca.configure(image=self.img_forca_redimensionada)
-            self.img_forca.image = self.img_forca_redimensionada
+            self.img_forca_resized = self.resize_img('Imagens/forca6.png', 160, 240)
+            self.img_forca.configure(image=self.img_forca_resized)
+            self.img_forca.image = self.img_forca_resized
 
-    def redimensiona_img(self, path, size_x, size_y):
+    def resized_img(self, path, size_x, size_y):
         self.img_original = Image.open(path)
-        self.img_redimensionada = self.img_original.resize((size_x, size_y), Image.Resampling.LANCZOS)
-        self.img_redimensionada = ImageTk.PhotoImage(self.img_redimensionada)
-        return self.img_redimensionada
+        self.img_resized = self.img_original.resize((size_x, size_y), Image.Resampling.LANCZOS)
+        self.img_resized = ImageTk.PhotoImage(self.img_resized)
+        return self.img_resized
 
     def logic(self, event):
         self.kick = self.set_kick()
@@ -213,13 +213,13 @@ class forca():
             self.ety_letter.config(state='disabled')
         self.ety_letter.delete(0)
             
-    def testa_valor_entrada(self, valor):
-        self.lista = "'abcdefghijklmnopqrstuvwxyzçäãáâéêíöõóôüúABCDEFGHIJKLMNOPQRSTUVWXYZÇÄÃÁÂÉÊÍÖÕÓÔÜÚ"
-        if valor in self.lista:
+    def input_value_test(self, valor):
+        self.list = "'abcdefghijklmnopqrstuvwxyzçäãáâéêíöõóôüúABCDEFGHIJKLMNOPQRSTUVWXYZÇÄÃÁÂÉÊÍÖÕÓÔÜÚ"
+        if valor in self.list:
             return True
         else:
             return False
 
     
 forca()
-self.lista = ["'", 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'ç', ]
+
